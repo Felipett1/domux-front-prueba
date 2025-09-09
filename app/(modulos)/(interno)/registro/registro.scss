@@ -1,0 +1,374 @@
+// Variables de colores basadas en la imagen
+$primary-blue: #2563eb;
+$secondary-orange: #fb923c;
+$background-orange: #fed7aa;
+$card-background: #ffffff;
+$text-dark: #1f2937;
+$text-gray: #6b7280;
+$border-color: #e5e7eb;
+$shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+.registro-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, $secondary-orange 0%, $background-orange 100%);
+  padding: 0;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+
+  .registro-header {
+    background: $primary-blue;
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+    border-radius: 0 0 1rem 1rem;
+    box-shadow: $shadow;
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+
+      .header-title {
+        color: white;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 0;
+        text-align: center;
+      }
+    }
+  }
+
+  .registro-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem 2rem;
+
+    .registro-form-container {
+      .form-title-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+        background: $card-background;
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: $shadow;
+
+        .form-title {
+          color: $text-dark;
+          font-size: 2rem;
+          font-weight: 700;
+          margin: 0;
+          flex: 1;
+        }
+
+        .building-illustration {
+          display: flex;
+          align-items: flex-end;
+          gap: 1rem;
+          margin-left: 2rem;
+
+          .building {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .building-base {
+              width: 60px;
+              height: 80px;
+              background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+              border-radius: 4px 4px 0 0;
+              position: relative;
+              
+              &::before {
+                content: '';
+                position: absolute;
+                top: 10px;
+                left: 8px;
+                right: 8px;
+                height: 8px;
+                background: #fbbf24;
+                border-radius: 2px;
+              }
+              
+              &::after {
+                content: '';
+                position: absolute;
+                top: 25px;
+                left: 8px;
+                right: 8px;
+                bottom: 8px;
+                background: repeating-linear-gradient(
+                  0deg,
+                  #60a5fa 0px,
+                  #60a5fa 8px,
+                  #3b82f6 8px,
+                  #3b82f6 16px
+                );
+                border-radius: 2px;
+              }
+            }
+
+            .building-floors {
+              width: 45px;
+              height: 60px;
+              background: linear-gradient(45deg, #f59e0b, #d97706);
+              border-radius: 4px;
+              position: relative;
+              margin-top: -5px;
+              
+              &::before {
+                content: '';
+                position: absolute;
+                top: 8px;
+                left: 6px;
+                right: 6px;
+                bottom: 6px;
+                background: repeating-linear-gradient(
+                  0deg,
+                  #fbbf24 0px,
+                  #fbbf24 6px,
+                  #f59e0b 6px,
+                  #f59e0b 12px
+                );
+                border-radius: 2px;
+              }
+            }
+
+            .building-roof {
+              width: 0;
+              height: 0;
+              border-left: 35px solid transparent;
+              border-right: 35px solid transparent;
+              border-bottom: 20px solid #dc2626;
+              margin-top: -2px;
+            }
+          }
+
+          .tree {
+            width: 25px;
+            height: 40px;
+            background: #22c55e;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: relative;
+            
+            &::before {
+              content: '';
+              position: absolute;
+              bottom: -8px;
+              left: 50%;
+              transform: translateX(-50%);
+              width: 4px;
+              height: 15px;
+              background: #92400e;
+              border-radius: 2px;
+            }
+          }
+        }
+      }
+
+      .form-section {
+        margin-bottom: 1.5rem;
+        border-radius: 1rem;
+        box-shadow: $shadow;
+        border: none;
+        overflow: hidden;
+
+        .p-card-body {
+          padding: 2rem;
+        }
+
+        .section-title {
+          color: $text-dark;
+          font-size: 1.25rem;
+          font-weight: 600;
+          margin: 0 0 1.5rem 0;
+          padding-bottom: 0.5rem;
+          border-bottom: 2px solid $background-orange;
+        }
+
+        .form-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 1.5rem;
+
+          .form-group {
+            display: flex;
+            flex-direction: column;
+
+            .form-label {
+              color: $text-dark;
+              font-weight: 500;
+              margin-bottom: 0.5rem;
+              font-size: 0.875rem;
+            }
+
+            .form-input {
+              border: 2px solid $border-color;
+              border-radius: 0.5rem;
+              padding: 0.75rem;
+              font-size: 0.875rem;
+              transition: all 0.2s ease;
+
+              &:focus {
+                border-color: $primary-blue;
+                box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+                outline: none;
+              }
+
+              &::placeholder {
+                color: $text-gray;
+              }
+            }
+
+            // Estilos específicos para PrimeReact
+            .p-inputtext {
+              border: 2px solid $border-color;
+              border-radius: 0.5rem;
+              padding: 0.75rem;
+              font-size: 0.875rem;
+              transition: all 0.2s ease;
+
+              &:focus {
+                border-color: $primary-blue;
+                box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+              }
+            }
+
+            .p-dropdown {
+              border: 2px solid $border-color;
+              border-radius: 0.5rem;
+              transition: all 0.2s ease;
+
+              &:focus-within {
+                border-color: $primary-blue;
+                box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+              }
+
+              .p-dropdown-label {
+                padding: 0.75rem;
+                font-size: 0.875rem;
+              }
+            }
+
+            .p-calendar {
+              .p-inputtext {
+                border: 2px solid $border-color;
+                border-radius: 0.5rem;
+                padding: 0.75rem;
+                font-size: 0.875rem;
+
+                &:focus {
+                  border-color: $primary-blue;
+                  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .form-actions {
+        text-align: center;
+        margin-top: 2rem;
+
+        .register-button {
+          background: $primary-blue;
+          border: none;
+          border-radius: 0.75rem;
+          padding: 1rem 3rem;
+          font-size: 1rem;
+          font-weight: 600;
+          color: white;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          box-shadow: $shadow;
+
+          &:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.1);
+          }
+
+          &:active {
+            transform: translateY(0);
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .registro-container {
+    .registro-header {
+      padding: 1rem;
+      margin-bottom: 1rem;
+
+      .header-title {
+        font-size: 1.25rem;
+      }
+    }
+
+    .registro-content {
+      padding: 0 0.5rem 1rem;
+
+      .registro-form-container {
+        .form-title-section {
+          flex-direction: column;
+          text-align: center;
+          gap: 1rem;
+
+          .form-title {
+            font-size: 1.5rem;
+          }
+
+          .building-illustration {
+            margin-left: 0;
+            justify-content: center;
+          }
+        }
+
+        .form-section {
+          .p-card-body {
+            padding: 1.5rem;
+          }
+
+          .form-grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+          }
+        }
+
+        .form-actions {
+          .register-button {
+            width: 100%;
+            padding: 1rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .registro-container {
+    .registro-content {
+      .registro-form-container {
+        .form-title-section {
+          padding: 1.5rem;
+
+          .form-title {
+            font-size: 1.25rem;
+          }
+        }
+
+        .form-section {
+          .p-card-body {
+            padding: 1rem;
+          }
+        }
+      }
+    }
+  }
+}

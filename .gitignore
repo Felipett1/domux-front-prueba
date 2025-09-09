@@ -1,0 +1,7 @@
+/.editorconfig
+/.env
+/.eslintrc.json
+/.next
+/.prettierignore
+/.prettierrc.json
+/node_modules

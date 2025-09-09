@@ -1,0 +1,417 @@
+// Variables de colores basadas en la imagen del login
+$primary-blue: #2563eb;
+$secondary-orange: #fb923c;
+$background-orange: #fed7aa;
+$card-background: #ffffff;
+$text-dark: #1f2937;
+$text-gray: #6b7280;
+$border-color: #e5e7eb;
+$shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+$input-background: #f8fafc;
+
+.login-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, $secondary-orange 0%, $background-orange 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  font-family: 'Inter', sans-serif;
+
+  .login-wrapper {
+    width: 100%;
+    max-width: 400px;
+    
+    .login-header {
+      background: $primary-blue;
+      padding: 1.5rem 2rem;
+      border-radius: 1rem 1rem 0 0;
+      text-align: center;
+      box-shadow: $shadow;
+
+      .header-title {
+        color: white;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 0;
+      }
+    }
+
+    .login-card {
+      background: $card-background;
+      border-radius: 0 0 1rem 1rem;
+      padding: 2rem;
+      box-shadow: $shadow;
+      position: relative;
+
+      .login-title {
+        color: $text-dark;
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0 0 2rem 0;
+        text-align: center;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+
+        .form-label {
+          display: block;
+          color: $text-dark;
+          font-weight: 500;
+          margin-bottom: 0.5rem;
+          font-size: 0.875rem;
+        }
+
+        .form-input {
+          width: 100%;
+          background: $input-background;
+          border: 2px solid $border-color;
+          border-radius: 0.5rem;
+          padding: 0.75rem;
+          font-size: 0.875rem;
+          transition: all 0.2s ease;
+          position: relative;
+
+          &:focus {
+            border-color: $primary-blue;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            outline: none;
+            background: white;
+          }
+
+          &::placeholder {
+            color: $text-gray;
+          }
+        }
+
+        // Estilos específicos para PrimeReact
+        .p-inputtext {
+          width: 100%;
+          background: $input-background;
+          border: 2px solid $border-color;
+          border-radius: 0.5rem;
+          padding: 0.75rem;
+          font-size: 0.875rem;
+          transition: all 0.2s ease;
+
+          &:focus {
+            border-color: $primary-blue;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            background: white;
+          }
+        }
+
+        .p-password {
+          width: 100%;
+          
+          .p-inputtext {
+            background: $input-background;
+            border: 2px solid $border-color;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            font-size: 0.875rem;
+
+            &:focus {
+              border-color: $primary-blue;
+              box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+              background: white;
+            }
+          }
+
+          .p-password-toggle {
+            color: $text-gray;
+            
+            &:hover {
+              color: $primary-blue;
+            }
+          }
+        }
+
+        // Iconos en los inputs
+        &.input-with-icon {
+          position: relative;
+
+          .input-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: $text-gray;
+            font-size: 1rem;
+            z-index: 1;
+          }
+
+          .form-input,
+          .p-inputtext {
+            padding-left: 2.5rem;
+          }
+        }
+      }
+
+      .remember-forgot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+        font-size: 0.875rem;
+
+        .remember-me {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          .p-checkbox {
+            .p-checkbox-box {
+              border: 2px solid $border-color;
+              border-radius: 0.25rem;
+              background: $input-background;
+              transition: all 0.2s ease;
+
+              &.p-highlight {
+                background: $primary-blue;
+                border-color: $primary-blue;
+              }
+            }
+          }
+
+          label {
+            color: $text-dark;
+            font-weight: 500;
+            cursor: pointer;
+          }
+        }
+
+        .forgot-password {
+          color: $primary-blue;
+          text-decoration: none;
+          font-weight: 500;
+          cursor: pointer;
+          transition: color 0.2s ease;
+
+          &:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+          }
+        }
+      }
+
+      .login-button {
+        width: 100%;
+        background: $primary-blue;
+        border: none;
+        border-radius: 0.75rem;
+        padding: 1rem;
+        font-size: 1rem;
+        font-weight: 600;
+        color: white;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: $shadow;
+
+        &:hover:not(:disabled) {
+          background: #1d4ed8;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        &:active:not(:disabled) {
+          transform: translateY(0);
+        }
+
+        &:disabled {
+          background: $text-gray;
+          cursor: not-allowed;
+          transform: none;
+          box-shadow: none;
+        }
+      }
+
+      .forgot-password-link {
+        text-align: center;
+        margin-top: 1.5rem;
+        
+        a {
+          color: $text-gray;
+          text-decoration: none;
+          font-size: 0.875rem;
+          
+          &:hover {
+            color: $primary-blue;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Decoraciones de fondo
+.login-container::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  width: 100px;
+  height: 100px;
+  background: rgba(37, 99, 235, 0.1);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.login-container::after {
+  content: '';
+  position: absolute;
+  bottom: 10%;
+  right: 5%;
+  width: 150px;
+  height: 150px;
+  background: rgba(251, 146, 60, 0.1);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .login-container {
+    padding: 0.5rem;
+
+    .login-wrapper {
+      max-width: 100%;
+
+      .login-header {
+        padding: 1rem 1.5rem;
+
+        .header-title {
+          font-size: 1.25rem;
+        }
+      }
+
+      .login-card {
+        padding: 1.5rem;
+
+        .login-title {
+          font-size: 1.5rem;
+        }
+
+        .remember-forgot {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.75rem;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    .login-wrapper {
+      .login-header {
+        padding: 0.75rem 1rem;
+
+        .header-title {
+          font-size: 1.125rem;
+        }
+      }
+
+      .login-card {
+        padding: 1rem;
+
+        .login-title {
+          font-size: 1.25rem;
+          margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+          margin-bottom: 1rem;
+        }
+      }
+    }
+  }
+}
+
+// Estilos para el modal de recuperación de contraseña
+.p-dialog {
+  .p-dialog-header {
+    background: $primary-blue;
+    color: white;
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+
+  .p-dialog-content {
+    padding: 2rem;
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+
+      label {
+        display: block;
+        color: $text-dark;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem;
+      }
+
+      .p-inputtext {
+        width: 100%;
+        background: $input-background;
+        border: 2px solid $border-color;
+        border-radius: 0.5rem;
+        padding: 0.75rem;
+        font-size: 0.875rem;
+        transition: all 0.2s ease;
+
+        &:focus {
+          border-color: $primary-blue;
+          box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+          background: white;
+        }
+
+        &.p-invalid {
+          border-color: #dc2626;
+        }
+      }
+
+      .p-error {
+        color: #dc2626;
+        font-size: 0.75rem;
+        margin-top: 0.25rem;
+      }
+    }
+  }
+
+  .p-dialog-footer {
+    padding: 1rem 2rem;
+    border-top: 1px solid $border-color;
+
+    .p-button {
+      border-radius: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+
+      &.p-button-text {
+        color: $text-gray;
+        
+        &:hover {
+          background: rgba(107, 114, 128, 0.1);
+        }
+      }
+
+      &:not(.p-button-text) {
+        background: $primary-blue;
+        border-color: $primary-blue;
+
+        &:hover {
+          background: #1d4ed8;
+          border-color: #1d4ed8;
+        }
+
+        &:disabled {
+          background: $text-gray;
+          border-color: $text-gray;
+        }
+      }
+    }
+  }
+}

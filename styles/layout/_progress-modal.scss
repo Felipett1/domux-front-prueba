@@ -1,0 +1,150 @@
+// Estilos para el modal de progreso de registro
+.progress-modal {
+    .p-dialog-content {
+        padding: 0 !important;
+        border-radius: 0 0 12px 12px;
+    }
+    
+    .p-dialog-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 12px 12px 0 0;
+        padding: 1.5rem;
+        
+        .p-dialog-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+    }
+    
+    .progress-content {
+        padding: 2rem;
+        text-align: center;
+        
+        .progress-spinner {
+            .p-progress-spinner-circle {
+                stroke: #667eea;
+                stroke-width: 3;
+            }
+        }
+        
+        .progress-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress-step {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            margin-bottom: 1rem;
+        }
+        
+        .progress-note {
+            font-size: 0.85rem;
+            line-height: 1.3;
+            
+            br {
+                margin-bottom: 0.25rem;
+            }
+        }
+    }
+    
+    .p-divider {
+        margin: 1rem 0;
+        
+        &.p-divider-horizontal:before {
+            border-top-color: #e9ecef;
+        }
+    }
+    
+    // Animación suave para el modal
+    &.p-dialog {
+        animation: modalFadeIn 0.3s ease-out;
+    }
+}
+
+// Animación de entrada del modal
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+// Estilos responsivos para el modal de progreso
+@media (max-width: 768px) {
+    .progress-modal {
+        .p-dialog {
+            width: 95vw !important;
+            margin: 1rem;
+        }
+        
+        .progress-content {
+            padding: 1.5rem;
+        }
+        
+        .p-dialog-header {
+            padding: 1rem;
+        }
+    }
+}
+
+// Mejoras para el spinner de carga
+.p-progress-spinner {
+    &.custom-spinner {
+        .p-progress-spinner-circle {
+            stroke: #667eea;
+            stroke-width: 3;
+            stroke-linecap: round;
+            filter: drop-shadow(0 2px 4px rgba(102, 126, 234, 0.2));
+        }
+    }
+}
+
+// Estilos para mensajes de error en dropdowns
+.p-error {
+    &.dropdown-error {
+        font-size: 0.8rem;
+        margin-top: 0.25rem;
+        display: block;
+        
+        .retry-link {
+            color: #007bff;
+            text-decoration: underline;
+            cursor: pointer;
+            margin-left: 0.25rem;
+            
+            &:hover {
+                color: #0056b3;
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+// Mejoras para dropdowns de Moodle
+.moodle-dropdown {
+    .p-dropdown {
+        &.p-disabled {
+            opacity: 0.7;
+            background-color: #f8f9fa;
+        }
+        
+        &.p-dropdown-loading {
+            .p-dropdown-trigger {
+                .pi {
+                    animation: spin 1s linear infinite;
+                }
+            }
+        }
+    }
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}

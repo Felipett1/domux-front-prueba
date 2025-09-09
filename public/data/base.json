@@ -1,0 +1,44 @@
+{
+    "title": "Reporte detallado por servicio",
+    "subtitle": "",
+    "name": "ServicioDetallado",
+    "type": "xlsx",
+    "context": "Fenix_ingalim/reportePorServicio.xlsx",
+    "icon": "pi-file",
+    "admin": true,
+    "fields": [
+        {
+            "id": "servicio",
+            "type": "dropdown",
+            "label": "Servicios",
+            "required": true,
+            "source": "api",
+            "group": "datos"
+        },
+        {
+            "type": "calendar",
+            "id": "fecha_inicio",
+            "label": "Fecha Inicio",
+            "required": true,
+            "group": "datos",
+            "concat": true
+        },
+        {
+            "type": "calendar",
+            "id": "fecha_final",
+            "label": "Fecha Fin",
+            "required": true,
+            "group": "datos",
+            "concat": true
+        }
+    ],
+    "buttons": [
+        {
+            "type": "button",
+            "label": "Generar",
+            "action": "solicitarReporte",
+            "severity": "primary",
+            "validation": true
+        }
+    ]
+}

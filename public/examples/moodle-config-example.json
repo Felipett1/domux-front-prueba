@@ -1,0 +1,123 @@
+{
+  "order": 1,
+  "title": "Registrar en curso Moodle",
+  "subtitle": "Manipulación de alimentos",
+  "duration": 12,
+  "context": "Fenix_ingalim/manipulacionAlimentos.pdf",
+  "enableMoodleIntegration": true,
+  "moodle": {
+    "baseUrl": "https://aula.coboy.com.co",
+    "token": "20fdf5686b3dfa72a2e63d73af8b0637",
+    "serviceName": "Fenix Integration"
+  },
+  "fields": [
+    {
+      "id": "documento",
+      "type": "input",
+      "group": "cliente",
+      "label": "Número de documento (Username en Moodle)*",
+      "onBlur": "consultarCliente",
+      "required": true,
+      "validation": "text",
+      "placeholder": "",
+      "help": "Este será el username único en Moodle"
+    },
+    {
+      "id": "nombre",
+      "type": "input",
+      "group": "cliente",
+      "label": "Nombre*",
+      "required": true,
+      "validation": "text",
+      "placeholder": ""
+    },
+    {
+      "id": "apellido",
+      "type": "input",
+      "group": "cliente",
+      "label": "Apellido*",
+      "required": true,
+      "validation": "text",
+      "placeholder": ""
+    },
+    {
+      "id": "lugar_expedicion",
+      "type": "input",
+      "group": "cliente",
+      "label": "Lugar de expedición*",
+      "required": true,
+      "validation": "text",
+      "placeholder": ""
+    },
+    {
+      "id": "celular",
+      "type": "input",
+      "group": "cliente",
+      "label": "Celular*",
+      "required": true,
+      "validation": "text",
+      "placeholder": ""
+    },
+    {
+      "id": "correo",
+      "type": "input",
+      "group": "cliente",
+      "label": "Correo*",
+      "required": true,
+      "validation": "email",
+      "placeholder": ""
+    },
+    {
+      "id": "metodo",
+      "type": "dropdown",
+      "group": "datos",
+      "label": "Método de pago*",
+      "options": [
+        {
+          "code": "Nequi",
+          "name": "Nequi"
+        },
+        {
+          "code": "Daviplata",
+          "name": "Daviplata"
+        },
+        {
+          "code": "Bancolombia",
+          "name": "Bancolombia"
+        },
+        {
+          "code": "Davivienda",
+          "name": "Davivienda"
+        },
+        {
+          "code": "Efectivo",
+          "name": "Efectivo"
+        }
+      ],
+      "required": true
+    },
+    {
+      "id": "valor",
+      "type": "input",
+      "group": "datos",
+      "label": "Valor*",
+      "required": true,
+      "validation": "currency",
+      "placeholder": ""
+    }
+  ],
+  "buttons": [
+    {
+      "type": "button",
+      "label": "Generar",
+      "action": "handleGenerate",
+      "severity": "primary"
+    },
+    {
+      "type": "button",
+      "label": "Limpiar",
+      "action": "handleClear",
+      "severity": "danger"
+    }
+  ]
+}

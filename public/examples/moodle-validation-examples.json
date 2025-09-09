@@ -1,0 +1,385 @@
+{
+  "$schema": "../schemas/moodle-config.schema.json",
+  "_metadata": {
+    "title": "Ejemplos de Validaciones Moodle",
+    "description": "Casos de uso y ejemplos para las validaciones de integración Moodle-Fenix",
+    "version": "1.0.0",
+    "lastUpdated": "2024-01-15",
+    "author": "Fenix Development Team"
+  },
+  
+  "validationExamples": {
+    "case1_new_user_success": {
+      "title": "✅ Caso 1: Usuario Nuevo Exitoso",
+      "description": "Documento y email únicos - Usuario creado exitosamente",
+      "input": {
+        "documento": "12345678",
+        "email": "nuevo@empresa.com",
+        "nombre": "Juan",
+        "apellido": "Pérez"
+      },
+      "moodleState": {
+        "existingUsers": [],
+        "existingEmails": []
+      },
+      "expectedResult": {
+        "action": "CREATE",
+        "success": true,
+        "message": "Usuario creado exitosamente en Moodle"
+      }
+    },
+    
+    "case2_update_user_success": {
+      "title": "✅ Caso 2: Actualización Exitosa",
+      "description": "Usuario existente con email propio - Actualización exitosa",
+      "input": {
+        "documento": "12345678",
+        "email": "juan.actualizado@empresa.com",
+        "nombre": "Juan Carlos",
+        "apellido": "Pérez García"
+      },
+      "moodleState": {
+        "existingUsers": [
+          {
+            "id": 123,
+            "username": "12345678",
+            "email": "juan@empresa.com",
+            "firstname": "Juan",
+            "lastname": "Pérez"
+          }
+        ],
+        "existingEmails": ["juan@empresa.com"]
+      },
+      "expectedResult": {
+        "action": "UPDATE",
+        "success": true,
+        "message": "Usuario actualizado exitosamente en Moodle"
+      }
+    },
+    
+    "case3_email_conflict_creation": {
+      "title": "❌ Caso 3: Error - Email Duplicado en Creación",
+      "description": "Documento nuevo pero email ya existe - Error de validación",
+      "input": {
+        "documento": "87654321",
+        "email": "juan@empresa.com",
+        "nombre": "Pedro",
+        "apellido": "González"
+      },
+      "moodleState": {
+        "existingUsers": [
+          {
+            "id": 123,
+            "username": "12345678",
+            "email": "juan@empresa.com",
+            "firstname": "Juan",
+            "lastname": "Pérez"
+          }
+        ],
+        "existingEmails": ["juan@empresa.com"]
+      },
+      "expectedResult": {
+        "action": "ERROR",
+        "success": false,
+        "error": "El correo electrónico juan@empresa.com ya está registrado por otro usuario en Moodle",
+        "errorCode": "EMAIL_ALREADY_EXISTS"
+      }
+    },
+    
+    "case4_email_conflict_update": {
+      "title": "❌ Caso 4: Error - Email de Otro Usuario en Actualización",
+      "description": "Usuario existente intenta usar email de otro - Error de validación",
+      "input": {
+        "documento": "12345678",
+        "email": "pedro@empresa.com",
+        "nombre": "Juan",
+        "apellido": "Pérez"
+      },
+      "moodleState": {
+        "existingUsers": [
+          {
+            "id": 123,
+            "username": "12345678",
+            "email": "juan@empresa.com",
+            "firstname": "Juan",
+            "lastname": "Pérez"
+          },
+          {
+            "id": 456,
+            "username": "87654321",
+            "email": "pedro@empresa.com",
+            "firstname": "Pedro",
+            "lastname": "González"
+          }
+        ],
+        "existingEmails": ["juan@empresa.com", "pedro@empresa.com"]
+      },
+      "expectedResult": {
+        "action": "ERROR",
+        "success": false,
+        "error": "El correo electrónico pedro@empresa.com ya está registrado por otro usuario en Moodle",
+        "errorCode": "EMAIL_BELONGS_TO_OTHER_USER"
+      }
+    },
+    
+    "case5_same_email_update": {
+      "title": "✅ Caso 5: Actualización con Mismo Email",
+      "description": "Usuario mantiene su email - Actualización exitosa",
+      "input": {
+        "documento": "12345678",
+        "email": "juan@empresa.com",
+        "nombre": "Juan Carlos",
+        "apellido": "Pérez García"
+      },
+      "moodleState": {
+        "existingUsers": [
+          {
+            "id": 123,
+            "username": "12345678",
+            "email": "juan@empresa.com",
+            "firstname": "Juan",
+            "lastname": "Pérez"
+          }
+        ],
+        "existingEmails": ["juan@empresa.com"]
+      },
+      "expectedResult": {
+        "action": "UPDATE",
+        "success": true,
+        "message": "Usuario actualizado exitosamente en Moodle"
+      }
+    }
+  },
+  
+  "validationRules": {
+    "documento": {
+      "description": "Número de documento que será el username único en Moodle",
+      "rules": [
+        "Debe ser único en Moodle",
+        "No se generan usernames alternativos",
+        "Un documento = Un usuario",
+        "Requerido y no puede estar vacío"
+      ],
+      "format": "string",
+      "examples": ["12345678", "87654321", "11223344"]
+    },
+    
+    "email": {
+      "description": "Correo electrónico único global en Moodle",
+      "rules": [
+        "Debe ser único en toda la plataforma Moodle",
+        "No puede estar asociado a múltiples usuarios",
+        "Validación estricta antes de crear/actualizar",
+        "Formato de email válido requerido"
+      ],
+      "format": "email",
+      "examples": ["usuario@empresa.com", "admin@test.com"]
+    }
+  },
+  
+  "processingOrder": {
+    "description": "Orden crítico de procesamiento para mantener integridad",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Validar datos de entrada",
+        "description": "Verificar formato y campos requeridos"
+      },
+      {
+        "step": 2,
+        "action": "Procesar en Moodle",
+        "description": "Crear/actualizar usuario con validaciones estrictas y notificaciones desactivadas"
+      },
+      {
+        "step": 3,
+        "action": "Matricular en curso",
+        "description": "Asignar usuario al curso especificado"
+      },
+      {
+        "step": 4,
+        "action": "Procesar en Fenix",
+        "description": "Crear/actualizar cliente y evento"
+      }
+    ],
+    "rollbackPolicy": {
+      "automatic": false,
+      "description": "No hay rollback automático si falla Fenix",
+      "manualSteps": [
+        "Identificar usuario creado en Moodle",
+        "Eliminar manualmente si es necesario",
+        "Registrar en logs para auditoría"
+      ]
+    }
+  },
+  
+  "notificationSettings": {
+    "description": "Configuración automática de notificaciones para usuarios creados/actualizados",
+    "defaultSettings": {
+      "maildigest": {
+        "value": "0",
+        "description": "Sin resumen de correo electrónico",
+        "options": {
+          "0": "Sin resumen",
+          "1": "Resumen completo",
+          "2": "Resumen de temas"
+        }
+      },
+      "autosubscribe": {
+        "value": "0",
+        "description": "No suscribirse automáticamente a foros",
+        "options": {
+          "0": "No suscribirse automáticamente",
+          "1": "Suscribirse automáticamente"
+        }
+      },
+      "trackforums": {
+        "value": "0",
+        "description": "No rastrear posts leídos/no leídos",
+        "options": {
+          "0": "No rastrear",
+          "1": "Rastrear posts"
+        }
+      }
+    },
+    "equivalentUIAction": "Marcar la casilla 'Desactivar las notificaciones' en el perfil del usuario",
+    "benefits": [
+      "Reduce el spam de correos electrónicos",
+      "Mejora la experiencia del usuario",
+      "Evita notificaciones no deseadas",
+      "Configuración consistente para todos los usuarios de Fenix"
+    ]
+  },
+  
+  "errorHandling": {
+    "validationErrors": {
+      "EMAIL_ALREADY_EXISTS": {
+        "code": "EMAIL_ALREADY_EXISTS",
+        "message": "El correo electrónico {email} ya está registrado por otro usuario en Moodle",
+        "userMessage": "Este correo electrónico ya está en uso. Por favor, utilice un correo diferente.",
+        "action": "Solicitar correo alternativo"
+      },
+      "EMAIL_BELONGS_TO_OTHER_USER": {
+        "code": "EMAIL_BELONGS_TO_OTHER_USER",
+        "message": "El correo electrónico {email} ya está registrado por otro usuario en Moodle",
+        "userMessage": "No puede usar este correo porque pertenece a otro usuario.",
+        "action": "Mantener correo actual o usar uno diferente"
+      },
+      "INVALID_EMAIL_FORMAT": {
+        "code": "INVALID_EMAIL_FORMAT",
+        "message": "El formato del correo electrónico no es válido",
+        "userMessage": "Por favor, ingrese un correo electrónico válido.",
+        "action": "Corregir formato de email"
+      },
+      "EMPTY_DOCUMENT": {
+        "code": "EMPTY_DOCUMENT",
+        "message": "El número de documento es requerido",
+        "userMessage": "El número de documento es obligatorio.",
+        "action": "Ingresar número de documento"
+      }
+    },
+    
+    "networkErrors": {
+      "CONNECTION_TIMEOUT": {
+        "code": "CONNECTION_TIMEOUT",
+        "message": "Timeout al conectar con Moodle",
+        "userMessage": "No se pudo conectar con el sistema. Intente nuevamente.",
+        "action": "Reintentar operación"
+      },
+      "INVALID_TOKEN": {
+        "code": "INVALID_TOKEN",
+        "message": "Token de autenticación inválido",
+        "userMessage": "Error de autenticación. Contacte al administrador.",
+        "action": "Verificar configuración de token"
+      }
+    }
+  },
+  
+  "testingScenarios": {
+    "description": "Escenarios de prueba para validar la integración",
+    "scenarios": [
+      {
+        "name": "Flujo completo exitoso",
+        "steps": [
+          "Crear usuario nuevo con datos únicos",
+          "Verificar creación en Moodle",
+          "Verificar matriculación en curso",
+          "Verificar creación en Fenix"
+        ]
+      },
+      {
+        "name": "Validación de email duplicado",
+        "steps": [
+          "Intentar crear usuario con email existente",
+          "Verificar error de validación",
+          "Confirmar que no se creó en Moodle",
+          "Confirmar que no se procesó en Fenix"
+        ]
+      },
+      {
+        "name": "Actualización exitosa",
+        "steps": [
+          "Actualizar usuario existente con datos válidos",
+          "Verificar actualización en Moodle",
+          "Verificar actualización en Fenix"
+        ]
+      },
+      {
+        "name": "Manejo de errores de red",
+        "steps": [
+          "Simular error de conexión a Moodle",
+          "Verificar manejo de error",
+          "Confirmar mensaje de error apropiado"
+        ]
+      }
+    ]
+  },
+  
+  "monitoring": {
+    "description": "Métricas y eventos a monitorear",
+    "events": [
+      {
+        "event": "moodle_user_created",
+        "description": "Usuario creado exitosamente en Moodle",
+        "level": "info"
+      },
+      {
+        "event": "moodle_user_updated",
+        "description": "Usuario actualizado exitosamente en Moodle",
+        "level": "info"
+      },
+      {
+        "event": "moodle_validation_error",
+        "description": "Error de validación en Moodle",
+        "level": "warning"
+      },
+      {
+        "event": "moodle_network_error",
+        "description": "Error de conexión con Moodle",
+        "level": "error"
+      },
+      {
+        "event": "fenix_processing_failed",
+        "description": "Falló procesamiento en Fenix después de Moodle",
+        "level": "critical"
+      }
+    ],
+    
+    "alerts": [
+      {
+        "condition": "moodle_validation_error > 10/hour",
+        "action": "Revisar UX del formulario",
+        "priority": "medium"
+      },
+      {
+        "condition": "moodle_network_error > 5/hour",
+        "action": "Verificar conectividad con Moodle",
+        "priority": "high"
+      },
+      {
+        "condition": "fenix_processing_failed > 1/hour",
+        "action": "Revisar integración y considerar rollback manual",
+        "priority": "critical"
+      }
+    ]
+  }
+}
